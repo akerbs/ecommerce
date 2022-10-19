@@ -224,7 +224,7 @@ export default function IndexPage(props) {
         >
           <Slide in={show1} timeout={1000} direction="up">
             <h2 className={classes.title1} id="title1">
-              Yop Shop
+            Ecommerce
             </h2>
           </Slide>
           <div className={classes.clouds}>

@@ -148,7 +148,7 @@ export default function Header(props) {
 
               <Typography variant="h6" className={classes.title}>
                 <Link to="/" className={classes.link}>
-                  Yop Shop
+                  Ecommerce
                 </Link>
               </Typography>
             </div>
