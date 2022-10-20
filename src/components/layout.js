@@ -1,18 +1,22 @@
-import React, { useState, useContext, createContext, useEffect } from "react"
-import PropTypes from "prop-types"
-import { useStaticQuery, graphql } from "gatsby"
-import CssBaseline from "@material-ui/core/CssBaseline"
-import "./layout.css"
-import { makeStyles } from "@material-ui/core/styles"
-import { ThemeProvider } from "@material-ui/core/styles"
-import theme from "./theme"
-import "@stripe/stripe-js" // https://github.com/stripe/stripe-js#import-as-a-side-effect
-import SimpleReactLightbox from "simple-react-lightbox"
-import { DrawerCartContextProvider } from "../context/DrawerCartContext"
-import { DrawerMenuContextProvider } from "../context/DrawerMenuContext"
-import { ItemsContextProvider } from "../context/ItemsContext"
-import { CartContextProvider } from "../context/CartContext"
-import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3"
+// @ts-nocheck
+import CssBaseline from "@material-ui/core/CssBaseline";
+import { makeStyles, ThemeProvider } from "@material-ui/core/styles";
+import "@stripe/stripe-js"; // https://github.com/stripe/stripe-js#import-as-a-side-effect
+import axios from 'axios';
+import { graphql, useStaticQuery } from "gatsby";
+import PropTypes from "prop-types";
+import React, { createContext, useEffect, useState } from "react";
+import { GoogleReCaptchaProvider } from "react-google-recaptcha-v3";
+import SimpleReactLightbox from "simple-react-lightbox";
+import { CartContextProvider } from "../context/CartContext";
+import { DrawerCartContextProvider } from "../context/DrawerCartContext";
+import { DrawerMenuContextProvider } from "../context/DrawerMenuContext";
+import { ItemsContextProvider } from "../context/ItemsContext";
+import "./layout.css";
+import theme from "./theme";
+export const CurrencyContext = createContext()
+export const LanguageContext = createContext()
+export const HeaderHeightContext = createContext()
 
 const window = require("global/window")
 const document = require("global/document")
@@ -26,16 +30,11 @@ const useStyles = makeStyles(theme => ({
     // overflow: "hidden",
   },
 }))
-export const CurrencyContext = createContext()
-export const LanguageContext = createContext()
-export const HeaderHeightContext = createContext()
 
 function Layout({ children }) {
   const classes = useStyles()
-
   const [actCurrency, setActCurrency] = useState("")
   const [actLanguage, setActLanguage] = useState("")
-
   const [countryCode, setCountryCode] = useState("")
 
   useEffect(() => {
@@ -68,16 +67,16 @@ function Layout({ children }) {
     }
   }, [])
 
-  useEffect(() => {
-    async function getLocation() {
-      const response = await fetch("https://api.country.is")
+  async function getLocation() {
+    try {
+      const response = await axios("https://api.country.is")
 
-      const info = await response.json()
-      console.log("info", info)
-      const countryCode = info.country
-
+      console.log('response',response);
+      const countryCode = response?.data?.country
+      console.log("countryCode", countryCode)
+  
       setCountryCode(countryCode)
-
+  
       countryCode === "US"
         ? setActCurrency("USD")
         : countryCode === "AT" ||
@@ -111,73 +110,18 @@ function Layout({ children }) {
         : countryCode === "RU"
         ? setActCurrency("RUB")
         : setActCurrency("USD")
-
+  
       return countryCode
+    } catch (e) {
+      console.error(e)
     }
-    getLocation().then(countryCode => console.log("COUNTRY CODE:", countryCode))
+  }
+ 
+ 
+
+  useEffect(() => {
+    getLocation()
   }, [])
-
-  // useEffect(() => {
-  //   async function getLocation() {
-  //     const response = await fetch("https://ipapi.co/json")
-
-  //     const info = await response.json()
-  //     console.log("info", info)
-  //     const countryCode = info.country_code
-
-  //     setCountryCode(countryCode)
-
-  //     countryCode == "US"
-  //       ? setActCurrency("USD")
-  //       : countryCode == "DE"
-  //       ? setActCurrency("EUR")
-  //       : countryCode == "RU"
-  //       ? setActCurrency("RUB")
-  //       : setActCurrency("USD")
-
-  //     return countryCode
-  //   }
-  //   getLocation().then(countryCode => console.log("COUNTRY CODE:", countryCode))
-  // }, [])
-
-  // useEffect(() => {
-  //   function getLocation() {
-  //     window.navigator.geolocation.getCurrentPosition(
-  //       position => {
-  //         let latitude = position.coords.latitude
-  //         let longitude = position.coords.longitude
-
-  //         const url = `http://api.geonames.org/countryCodeJSON?lat=${latitude}&lng=${longitude}&username=anker2702`
-
-  //         const response = fetch(url)
-  //           .then(res => {
-  //             return res.json()
-  //           })
-  //           .then(data => {
-  //             setCountryCode(data.countryCode)
-
-  //             data.countryCode == "US"
-  //               ? setActCurrency("USD")
-  //               : data.countryCode == "DE"
-  //               ? setActCurrency("EUR")
-  //               : data.countryCode == "RU"
-  //               ? setActCurrency("RUB")
-  //               : setActCurrency("USD")
-  //             console.log("!!!!!ABC!!!!!", data)
-  //             // alert(data.countryName)
-  //           })
-
-  //           .catch(err => {
-  //             console.log(err)
-  //           })
-  //       },
-  //       error => {
-  //         console.log(error.code)
-  //       }
-  //     )
-  //   }
-  //   getLocation()
-  // }, [])
 
   function handleCountryCodeChange(event) {
     setCountryCode(event.target.value)

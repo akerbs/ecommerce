@@ -1,12 +1,16 @@
-import React, { createContext, useEffect, useState } from "react"
-import catClock from "../images/products/cat_clock/cat_clock_1.jpg"
-import funnyBunny2 from "../images/products/funny_bunny/funny_bunny_1.jpg"
-import funnyBunny from "../images/products/funny_bunny/funny_bunny_2.jpg"
-import magicHat from "../images/products/magic_hat/magic_hat_1.jpg"
+// @ts-nocheck
+import axios from 'axios';
+import React, { createContext, useEffect, useState } from "react";
+import catClock from "../images/products/cat_clock/cat_clock_1.jpg";
+import funnyBunny2 from "../images/products/funny_bunny/funny_bunny_1.jpg";
+import funnyBunny from "../images/products/funny_bunny/funny_bunny_2.jpg";
+import magicHat from "../images/products/magic_hat/magic_hat_1.jpg";
+
+
 
 const ItemsContext = createContext()
 
-const ItemsContextProvider = props => {
+const ItemsContextProvider = ({children}) => {
   const [products, setProducts] = useState([
     {
       linkId: "funny-bunny",
@@ -16,7 +20,7 @@ const ItemsContextProvider = props => {
       nameRus: "Забавный кролик",
       descriptionEng: "Great funny bunny",
       descriptionDeu: "Toller lustiger Hase",
-      descriptionRus: "Отличный забавный кролик",
+      descriptionRus: "Забавный кролик",
       videoId: "-i_94tW_iSM",
       firstImg: funnyBunny,
       scndImg: funnyBunny2,
@@ -112,53 +116,57 @@ const ItemsContextProvider = props => {
       quantity: 1,
     },
   ])
-
-  const [eurUsdRate, setEurUsdRate] = useState(0)
-  const [eurRubRate, setEurRubRate] = useState(0)
-
-  const handlePricesUpdate = id => {
-    const nextState = products.map(item =>
-      item.id === id
-        ? {
-            ...item,
-            priceUsd: Number((item.priceEur * 0.9724).toFixed(2)),
-            priceRub: Number((item.priceEur * 60.65).toFixed(2)),
-          }
-        : item
-    )
-    setProducts(nextState)
-  }
-
-  useEffect(() => {
-    handlePricesUpdate()
-  }, [eurRubRate, eurUsdRate])
-
-  function GetExchangeRates() {
-    try {
-      let response = fetch("https://api.exchangeratesapi.io/latest?base=EUR")
-        .then(res => {
-          return res.json()
-        })
-        .then(data => {
-          console.log("DA-DA", data)
-          setEurRubRate(data?.rates?.RUB?.toFixed(2))
-          setEurUsdRate(data?.rates?.USD?.toFixed(2))
-        })
-    } catch (error) {
-      console.log(error)
-    }
-  }
+  const [eurUsdRate, setEurUsdRate] = useState(null)
+  const [eurRubRate, setEurRubRate] = useState(null)
 
   useEffect(() => {
     GetExchangeRates()
   }, [])
 
+  useEffect(() => {
+    const newData = products.map(item => ({
+      ...item,  key: item.itemId, priceRub: Number((item.priceEur * eurRubRate)), priceUsd: Number((item.priceEur * eurUsdRate)),
+    }))
+
+    setProducts(newData)
+    console.log('NEW DATA', newData)
+  }, [eurRubRate,eurUsdRate ])
+
+  useEffect(() => {
+    console.log('PRODUCTS changes', products);
+    
+    }, [products])
+
+  // useEffect(() => {
+  //   const newData = products.map(item => ({
+  //     ...item,  priceRub: Number((item.price * eurRubRate)), priceUsd: Number((item.price * eurUsdRate)),
+  //   }))
+
+  //   setProducts(newData)
+  // }, [eurRubRate, eurUsdRate])
+
+  async function GetExchangeRates() {
+    try {
+      let response = await axios(`https://api.exchangerate.host/latest`) 
+      setEurRubRate((response?.data?.rates?.RUB)?.toFixed(2))
+      setEurUsdRate((response?.data?.rates?.USD)?.toFixed(2))
+      console.log("EURRUB", response?.data?.rates?.RUB?.toFixed(2))
+      console.log("EURUSD", response?.data?.rates?.USD?.toFixed(2))
+    } catch (e) {
+      console.error(e)
+    }
+  }
+
+  useEffect(() => {
+    console.log('PROduCtS cHAnged', products);
+  }, [products])
+
   const changeHover = (val, bool) => {
-    setProducts(prevstate =>
-      prevstate.map((item, idx) =>
-        idx === val ? { ...item, hovered: bool } : { ...item }
-      )
-    )
+    // setProducts(prevstate =>
+    //   prevstate.map((item, idx) =>
+    //     idx === val ? { ...item, hovered: bool } : { ...item }
+    //   )
+    // )
   }
 
   return (
@@ -168,9 +176,10 @@ const ItemsContextProvider = props => {
         changeHover,
       }}
     >
-      {props.children}
+      {children}
     </ItemsContext.Provider>
   )
 }
 
-export { ItemsContextProvider, ItemsContext }
+export { ItemsContextProvider, ItemsContext };
+

@@ -1,12 +1,12 @@
-import React, { useContext, useState } from "react"
+import { yupResolver } from "@hookform/resolvers"
+import Button from "@material-ui/core/Button"
 import { makeStyles } from "@material-ui/core/styles"
 import TextField from "@material-ui/core/TextField"
-import Button from "@material-ui/core/Button"
+import React, { useContext, useState } from "react"
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3"
 import { useForm } from "react-hook-form"
 import * as yup from "yup"
-import { yupResolver } from "@hookform/resolvers"
 import { LanguageContext } from "../layout"
-import { useGoogleReCaptcha } from "react-google-recaptcha-v3"
 
 const window = require("global/window")
 
@@ -85,7 +85,7 @@ const schemaRus = yup.object().shape({
   // .email('Please check your email')
 })
 
-export default function (props) {
+export function SubscribeForm (props) {
   const { executeRecaptcha } = useGoogleReCaptcha()
   const [token, setToken] = useState("")
   const { actLanguage } = useContext(LanguageContext)

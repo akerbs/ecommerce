@@ -1,19 +1,17 @@
-import React, { useContext, useEffect } from "react"
-import CssBaseline from "@material-ui/core/CssBaseline"
-import IconButton from "@material-ui/core/IconButton"
-import CloseIcon from "@material-ui/icons/Close"
-import Counter from "./CounterCart"
-import { makeStyles } from "@material-ui/core/styles"
-import Grid from "@material-ui/core/Grid"
-import Paper from "@material-ui/core/Paper"
-import Typography from "@material-ui/core/Typography"
 import ButtonBase from "@material-ui/core/ButtonBase"
+import CssBaseline from "@material-ui/core/CssBaseline"
 import Divider from "@material-ui/core/Divider"
-import { navigate } from "gatsby"
+import Grid from "@material-ui/core/Grid"
+import IconButton from "@material-ui/core/IconButton"
+import Paper from "@material-ui/core/Paper"
 import Slide from "@material-ui/core/Slide"
-import Fade from "@material-ui/core/Fade"
-import { LanguageContext } from "../layout"
-import { CurrencyContext } from "../layout"
+import { makeStyles } from "@material-ui/core/styles"
+import Typography from "@material-ui/core/Typography"
+import CloseIcon from "@material-ui/icons/Close"
+import { navigate } from "gatsby"
+import React, { useContext, useEffect } from "react"
+import { CurrencyContext, LanguageContext } from "../layout"
+import Counter from "./CounterCart"
 const window = require("global/window")
 
 const cartItemPadding =
@@ -38,15 +36,12 @@ const useStyles = makeStyles(theme => ({
     marginBottom: itemMarginBottom,
   },
   imgBtn: {
-    // marginTop: "5%",
     width: 100,
     height: 100,
     display: " inline-block",
     overflow: "hidden",
     transform: "translateZ(0)",
     borderRadius: "5%",
-    // maskImage: "radial-gradient(white, black)",
-    // borderRadius: "100%",
   },
   img: {
     margin: "auto",
@@ -113,7 +108,6 @@ export default function CartItem(props) {
                       className={classes.img}
                       src={props.cartItem.firstImg}
                       alt={
-                        // props.cartItem.name
                         actLanguage === "DEU"
                           ? props.cartItem.nameDeu
                           : actLanguage === "RUS"
@@ -140,8 +134,6 @@ export default function CartItem(props) {
                     <Grid item xs>
                       <Typography variant="subtitle2" gutterBottom>
                         {
-                          // props.cartItem.name
-
                           actLanguage === "DEU"
                             ? props.cartItem.nameDeu
                             : actLanguage === "RUS"
@@ -153,7 +145,6 @@ export default function CartItem(props) {
                       </Typography>
                       <Typography variant="caption" gutterBottom>
                         {
-                          // props.cartItem.description
                           actLanguage === "DEU"
                             ? props.cartItem.descriptionDeu
                             : actLanguage === "RUS"
@@ -171,13 +162,8 @@ export default function CartItem(props) {
                             quantity={props.cartItem.quantity}
                             cartItem={props.cartItem}
                           />{" "}
-                          {/* {(props.item.currency = "eur" ? "€" : props.item.currency)}{" "} */}
-                          {/* {corrPrice} */}
-                          {
-                            // props.cartItem.price
-
-                            getItemFormTotalPrice()
-                          }{" "}
+                            {getItemFormTotalPrice()}
+                          {" "}
                           {actCurrency === "EUR"
                             ? props.cartItem.currencySignEur
                             : actCurrency === "RUB"

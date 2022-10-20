@@ -1,31 +1,18 @@
-import React, { useState, useEffect } from "react"
 import CssBaseline from "@material-ui/core/CssBaseline"
-import Typography from "@material-ui/core/Typography"
-import Container from "@material-ui/core/Container"
 import Grid from "@material-ui/core/Grid"
+import Slide from "@material-ui/core/Slide"
 import { makeStyles } from "@material-ui/core/styles"
+import Typography from "@material-ui/core/Typography"
 import FacebookIcon from "@material-ui/icons/Facebook"
 import InstagramIcon from "@material-ui/icons/Instagram"
 import { Link } from "gatsby"
-import payCard1 from "../images/payCards/visa.jpg"
-import payCard2 from "../images/payCards/mastercard.jpg"
-import payCard3 from "../images/payCards/amex.jpg"
-import payCard4 from "../images/payCards/paypal.jpg"
-
-import payCard5 from "../images/payCards/ec.jpg"
-import payCard6 from "../images/payCards/giropay.jpg"
-import payCard7 from "../images/payCards/sepa.jpg"
-import payCard8 from "../images/payCards/sofort.jpg"
-import payCard9 from "../images/payCards/klarna.jpg"
-import payCard10 from "../images/payCards/google.jpg"
-import payCard11 from "../images/payCards/apple.jpg"
-
 import inView from "in-view"
-import Slide from "@material-ui/core/Slide"
+import React, { useEffect, useState } from "react"
+import payCard3 from "../images/payCards/amex.jpg"
+import payCard2 from "../images/payCards/mastercard.jpg"
+import payCard4 from "../images/payCards/paypal.jpg"
+import payCard1 from "../images/payCards/visa.jpg"
 import SubscribeFormFooter from "./Subscribe/SubscribeFormFooter"
-const window = require("global/window")
-
-// const footerPaddingTop = window.innerWidth <= 599 ? "20%" : "5%"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -38,11 +25,6 @@ const useStyles = makeStyles(theme => ({
       padding: "15% 5% 5% 5%",
     },
   },
-  // content: {
-  //   marginTop: footerMarginTop,
-  //   color: "black",
-  // },
-
   title: {
     marginBottom: 20,
   },
@@ -68,7 +50,7 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function () {
+export function Footer() {
   const classes = useStyles()
   const [show, setShow] = useState(false)
 
@@ -90,11 +72,9 @@ export default function () {
       <div style={{ overflow: "hidden" }} id="selector">
         <Slide in={show} timeout={1000} direction="up">
           <div>
-            {/* <Container maxWidth="md" className={classes.content}> */}
             <Grid
               container
               className={classes.root}
-              // spacing={10}
               spacing={5}
             >
               <Grid item md={5}>
@@ -128,46 +108,6 @@ export default function () {
                     title="pay pal"
                     className={classes.payCardItem}
                   />
-                  {/* <img
-                    src={payCard5}
-                    title="american express"
-                    className={classes.payCardItem}
-                  />
-
-                  <img
-                    src={payCard6}
-                    title="google pay"
-                    className={classes.payCardItem}
-                  />
-
-                  <img
-                    src={payCard7}
-                    title="apple pay"
-                    className={classes.payCardItem}
-                  />
-                  <img
-                    src={payCard8}
-                    // title="apple pay"
-                    className={classes.payCardItem}
-                  />
-
-                  <img
-                    src={payCard9}
-                    // title="apple pay"
-                    className={classes.payCardItem}
-                  />
-
-                  <img
-                    src={payCard10}
-                    // title="apple pay"
-                    className={classes.payCardItem}
-                  />
-
-                  <img
-                    src={payCard11}
-                    // title="apple pay"
-                    className={classes.payCardItem}
-                  /> */}
                 </div>
               </Grid>
               <Grid item md={3}>
@@ -222,9 +162,8 @@ export default function () {
                 minHeight: "50px",
               }}
             >
-              © {new Date().getFullYear()}, MyStore
+              2020 - 2022, © Ecommerce  
             </div>
-            {/* </Container> */}
           </div>
         </Slide>
       </div>

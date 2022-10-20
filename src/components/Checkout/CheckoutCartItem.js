@@ -1,19 +1,10 @@
-import React, { useContext, useEffect } from "react"
 import CssBaseline from "@material-ui/core/CssBaseline"
-import IconButton from "@material-ui/core/IconButton"
-import CloseIcon from "@material-ui/icons/Close"
-// import Counter from "../CounterLittle"
-import { makeStyles } from "@material-ui/core/styles"
 import Grid from "@material-ui/core/Grid"
 import Paper from "@material-ui/core/Paper"
+import { makeStyles } from "@material-ui/core/styles"
 import Typography from "@material-ui/core/Typography"
-import ButtonBase from "@material-ui/core/ButtonBase"
-import Divider from "@material-ui/core/Divider"
-import { navigate } from "gatsby"
-import Slide from "@material-ui/core/Slide"
-import Fade from "@material-ui/core/Fade"
-import { LanguageContext } from "../layout"
-import { CurrencyContext } from "../layout"
+import React, { useContext } from "react"
+import { CurrencyContext, LanguageContext } from "../layout"
 const window = require("global/window")
 
 const CheckoutCartItemPadding =

@@ -1,12 +1,9 @@
-import React, { useState, useContext, useEffect } from "react"
-import { ItemsContext } from "../../context/ItemsContext"
-import { LanguageContext } from "../layout"
-import { CurrencyContext } from "../layout"
-
-import Button from "@material-ui/core/Button"
-import { makeStyles } from "@material-ui/core/styles"
-import ItemCard from "./ItemCard"
 import Grid from "@material-ui/core/Grid"
+import { makeStyles } from "@material-ui/core/styles"
+import React, { useContext } from "react"
+import { ItemsContext } from "../../context/ItemsContext"
+import { CurrencyContext, LanguageContext } from "../layout"
+import { ItemCard } from "./ItemCard"
 
 const useStyles = makeStyles({})
 
@@ -15,11 +12,12 @@ export default function () {
   const { products, changeHover } = useContext(ItemsContext)
   const { actCurrency } = useContext(CurrencyContext)
   const { actLanguage } = useContext(LanguageContext)
+  
 
   return (
     <>
       <Grid container spacing={0}>
-        {products.map((item, idx) => {
+        {products.map((item) => {
           const newSku = {
             name:
               actLanguage === "ENG"
@@ -85,9 +83,9 @@ export default function () {
               <ItemCard
                 sku={newSku}
                 key={item.productId}
-                id={idx}
-                onMouseOver={idx === 0 ? changeHover : null}
-                onMouseOut={idx === 0 ? changeHover : null}
+                id={item.productId}
+                onMouseOver={item.productId === 0 ? changeHover : null}
+                onMouseOut={item.productId === 0 ? changeHover : null}
               />
             </Grid>
           )

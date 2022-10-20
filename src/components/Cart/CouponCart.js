@@ -1,38 +1,24 @@
-import React, { useState, useContext, useEffect } from "react"
+import Button from "@material-ui/core/Button"
 import { makeStyles } from "@material-ui/core/styles"
 import TextField from "@material-ui/core/TextField"
-import { Input } from "@material-ui/core"
-import Button from "@material-ui/core/Button"
+import React, { useContext, useEffect, useState } from "react"
 // import { useShoppingCart } from "use-shopping-cart"
 import Divider from "@material-ui/core/Divider"
-import { LanguageContext } from "../layout"
-import { CurrencyContext } from "../layout"
 import { CartContext } from "../../context/CartContext"
+import { CurrencyContext, LanguageContext } from "../layout"
 const window = require("global/window")
 
 const couponMargin =
   window.innerWidth <= 599 ? "6.7% 6% 0% 6%" : "5% 4.3% 0% 4.3%"
 
 const useStyles = makeStyles(theme => ({
-  root: {
-    // "& > *": {
-    //   margin: theme.spacing(1),
-    //   width: "25ch",
-    // },
-  },
   textField: {
     "& .MuiOutlinedInput-root": {
-      // "& fieldset": {
-      //   borderWidth: 1,
-      //   borderColor: "#e0e0e0",
-      // },
       "&:hover fieldset": {
         borderColor: "#c4c4c4",
       },
       "&.Mui-focused fieldset": {
         borderColor: theme.palette.primary.main,
-        // borderWidth: 1,
-        // boxShadow: `${fade(theme.palette.primary.main, 0.25)} 0 0 0 4px`,
       },
     },
   },

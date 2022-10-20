@@ -139,7 +139,7 @@ export default function Header(props) {
                 onClick={handleDrawerMenuOpen}
                 edge="start"
                 className={clsx(
-                  classes.menuLeftButton,
+                  // classes.menuLeftButton,
                   openDrawerMenu && classes.hide
                 )}
               >

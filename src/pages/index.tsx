@@ -3,12 +3,12 @@ import Slide from "@material-ui/core/Slide"
 import { makeStyles } from "@material-ui/core/styles"
 import React, { useContext, useEffect, useState } from "react"
 import CookiesBar from "../components/cookiesBar"
-import Footer from "../components/footer"
+import { Footer } from "../components/footer"
 import Header from "../components/header"
-import { CurrencyContext, HeaderHeightContext } from "../components/layout"
+import { HeaderHeightContext } from "../components/layout"
 import Scroll from "../components/ScrollToTopBtn"
 import SEO from "../components/seo"
-import SubscribeWindow from "../components/Subscribe/SubscribeWindow"
+import { WeclomeModal } from "../components/Subscribe/WeclomeModal"
 import bgImg from "../images/castle77.jpg"
 import cloud1 from "../images/cloud1.png"
 import cloud2 from "../images/cloud2.png"
@@ -23,11 +23,8 @@ const useStyles = makeStyles(theme => ({
   root: {
     display: "flex",
     flexDirection: "column",
-    // minHeight: "100vh",
   },
   contentWrapper: {
-    // flex: "1 0 auto",
-    // marginTop: "10vh",
     margin: 0,
     padding: 0,
     boxSizing: "border-box",
@@ -72,17 +69,6 @@ const useStyles = makeStyles(theme => ({
     animation: "$animate calc(3s * var(--i)) linear infinite",
   },
   "@keyframes animate": {
-    // "0%": {
-    //   opacity: 0,
-    //   transform: "scale(1)",
-    // },
-    // '25%", "75%': {
-    //   opacity: 1,
-    // },
-    // "100%": {
-    //   opacity: 0,
-    //   transform: "scale(3)",
-    // },
     "0% ": {
       transform: "translateX(-100%)",
     },
@@ -111,63 +97,33 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function IndexPage(props) {
-  // console.log("DATA:", products)
+export default function IndexPage() {
+  const [showModal, setShowModal] = useState(false) // WelcomeModal
   const { headerHeight } = useContext(HeaderHeightContext)
-
   const classes = useStyles()
-  const { actCurrency } = useContext(CurrencyContext)
-
-  const [openSubscribeWindow, setOpenSubscribeWindow] = useState(true)
-  const [visited, setVisited] = useState(false)
 
   useEffect(() => {
     window.scrollTo(0, 0)
+    checkVisited()
   }, [])
 
-  // useEffect(() => {
-  //   window.addEventListener("load", () => {
-  //     window.scrollTo(0, 0)
-  //   })
 
-  //   return () => {
-  //     window.removeEventListener("load", window.scrollTo(0, 0))
-  //   }
-  // })
-
-  // window.onload = () => {
-  //   window.scrollTo(0, 0)
-  // }
-
-  useEffect(() => {
-    if (document.cookie.indexOf("visited") >= 0 || visited) {
-      setVisited(false)
-      console.log(
-        "Already visited",
-        document.cookie.indexOf("visited"),
-        "times"
-      )
+  function checkVisited() {
+   if (Boolean(document.cookie.indexOf('visited') >= 0)) {
+      setShowModal(false)
+      console.log("Already visited")
     } else {
-      const expiry = new Date()
-      expiry.setTime(expiry.getTime() + 5 * 365 * 24 * 60 * 60 * 1000) // Five years  5 * 365 * 24 * 60 * 60 * 1000
-      document.cookie = "visited=yes; expires=" + expiry.toUTCString()
-      console.log("this is your first time")
-
       const timer = setTimeout(() => {
-        handleOpenSubscribeWindow()
-      }, 5000)
-      return () => clearTimeout(timer)
-    }
-  }, [])
-
-  const handleOpenSubscribeWindow = () => {
-    setOpenSubscribeWindow(true)
+        const expiry = new Date()
+        expiry.setTime(expiry.getTime() + 24 * 60 * 60 * 1000) // one day
+        document.cookie = "visited=yes; expires=" + expiry.toUTCString()
+        setShowModal(true)
+        console.log("This is your first time")
+          }, 5000)
+          return () => clearTimeout(timer)
+        }
   }
-  const handleCloseSubscribeWindow = () => {
-    setOpenSubscribeWindow(false)
-    setVisited(true)
-  }
-
+  
   const [show1, setShow1] = useState(false)
 
   useState(() => {
@@ -176,21 +132,6 @@ export default function IndexPage(props) {
     }, 1000)
   })
 
-  // function startInView1() {
-  //   setShow1(true)
-  // }
-  // function stopInView1() {
-  //   setShow1(false)
-  // }
-
-  // useEffect(() => {
-  //   // inView(".selector1").on("enter", startInView1).on("exit", stopInView1)
-  //   inView("#banner").once("enter", startInView1)
-  //   // inView(".selector2").on("enter", startInView2).on("exit", stopInView2)
-  //   // inView(".selector2").once("enter", startInView2)
-  //   inView.threshold(0.1)
-  // })
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////
   function handleScroll() {
     let text = document.getElementById("title1")
     let value = window.scrollY
@@ -205,7 +146,7 @@ export default function IndexPage(props) {
       window.removeEventListener("scroll", handleScroll)
     }
   })
-  ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   return (
     <div className={classes.root}>
       <SEO title="Home" keywords={[`gatsby`, `application`, `react`]} />
@@ -213,13 +154,11 @@ export default function IndexPage(props) {
       <Header />
       <Scroll showBelow={250} />
       <div
-        // maxWidth="md"
         className={classes.contentWrapper}
         style={{ marginTop: headerHeight }}
       >
         <div
           className={classes.banner}
-          // style={{ maxHeight: "calc(80vh - headerHeight)" }}
           id="banner"
         >
           <Slide in={show1} timeout={1000} direction="up">
@@ -260,7 +199,6 @@ export default function IndexPage(props) {
           <h2 className={classes.title2} id="title2">
             Welcome
           </h2>
-
           <p>
             Lorem ipsum dolor sit, amet consectetur adipisicing elit. Vitae
             beatae cupiditate dolorem voluptatem itaque minima quod, velit
@@ -293,9 +231,9 @@ export default function IndexPage(props) {
       </div>
 
       <Footer />
-      {!visited && <SubscribeWindow
-        open={openSubscribeWindow}
-        onClose={handleCloseSubscribeWindow}
+      {showModal && <WeclomeModal
+        open={showModal}
+        onClose={setShowModal}
       />}
       <CookiesBar />
     </div>

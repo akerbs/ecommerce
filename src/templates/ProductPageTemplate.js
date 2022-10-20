@@ -1,30 +1,29 @@
-import React, { useState, useContext, useEffect, useRef } from "react"
-import CssBaseline from "@material-ui/core/CssBaseline"
-import { makeStyles } from "@material-ui/core/styles"
-import Header from "../components/header"
-import Footer from "../components/footer"
 import Container from "@material-ui/core/Container"
-import "./clearfix.css"
-import { SRLWrapper } from "simple-react-lightbox"
-import withWidth from "@material-ui/core/withWidth"
+import CssBaseline from "@material-ui/core/CssBaseline"
 import Hidden from "@material-ui/core/Hidden"
-import PropTypes from "prop-types"
-import { MainSwiper } from "../components/Swipers"
-import { DrawerCartContext } from "../context/DrawerCartContext"
-import { CurrencyContext } from "../components/layout"
-import { LanguageContext } from "../components/layout"
-import { CartContext } from "../context/CartContext"
+import { makeStyles } from "@material-ui/core/styles"
 import Typography from "@material-ui/core/Typography"
-import BreadCrumbs from "../components/ProductPage/BreadCrumbs"
-import { Link, navigate } from "gatsby"
-import Counter from "../components/ProductPage/CounterProductPage.js"
-import RatingElBlack from "../components/Reviews/RatingElBlack"
-import Reviews from "../components/Reviews/Reviews"
+import withWidth from "@material-ui/core/withWidth"
+import { Link } from "gatsby"
+import PropTypes from "prop-types"
+import React, { useContext, useEffect, useState } from "react"
+import { SRLWrapper } from "simple-react-lightbox"
+import { Footer } from "../components/footer"
+import Header from "../components/header"
+import { CurrencyContext, LanguageContext } from "../components/layout"
 import Accordion from "../components/ProductPage/Accordion"
+import BreadCrumbs from "../components/ProductPage/BreadCrumbs"
+import { AddToCartBtn, BuyNowBtn } from "../components/ProductPage/Buttons"
+import Counter from "../components/ProductPage/CounterProductPage.js"
 import Tabs from "../components/ProductPage/Tabs"
 import VideoYT from "../components/ProductPage/VideoYT"
+import RatingElBlack from "../components/Reviews/RatingElBlack"
+import Reviews from "../components/Reviews/Reviews"
 import Scroll from "../components/ScrollToTopBtn"
-import { AddToCartBtn, BuyNowBtn } from "../components/ProductPage/Buttons"
+import { MainSwiper } from "../components/Swipers"
+import { CartContext } from "../context/CartContext"
+import { DrawerCartContext } from "../context/DrawerCartContext"
+import "./clearfix.css"
 
 const document = require("global/document")
 const window = require("global/window")
@@ -41,7 +40,6 @@ const useStyles = makeStyles(theme => ({
     },
   },
   boxLeft: {
-    // border: "1px solid rgba(0, 0, 0, 0.05)",
     float: "left",
     width: "50%",
     padding: 0,
@@ -66,16 +64,6 @@ const lightboxOptions = {
   },
   thumbnails: { showThumbnails: false },
 }
-const lightboxCallbacks = {
-  onLightboxOpened: () => {
-    document.body.style.position = "fixed"
-  },
-  onLightboxClosed: () => {
-    const scrollY = document.body.style.top
-    document.body.style.position = ""
-  },
-}
-
 function ProductPageTemplate(props) {
   const classes = useStyles()
   const { actCurrency } = useContext(CurrencyContext)
@@ -95,7 +83,6 @@ function ProductPageTemplate(props) {
   }
 
   useEffect(() => {
-    // console.log("BROWSING WORKS")
     window.onpageshow = function () {
       console.log("PAGE IS LOADED")
     }
@@ -114,13 +101,11 @@ function ProductPageTemplate(props) {
     setQuantityOfItem(1)
   }
 
-  //////////////////////////////////////////////////////
   const newArr = props.item.reviews.map(el => Number(el.rating))
   const sum = newArr.reduce((a, b) => a + b, 0)
   const quantityOfReviews = newArr.length
   const averageRatingValue = sum / quantityOfReviews
   // console.log("->!!!!->", newArr, sum, quantity, averageRatingValue)
-  //////////////////////////////////////////////////////
 
   function formatPrice(price) {
     if (!price) {

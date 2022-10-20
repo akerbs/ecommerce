@@ -1,16 +1,15 @@
-import React, { useContext } from "react"
-import Typography from "@material-ui/core/Typography"
-import Modal from "@material-ui/core/Modal"
-import Grid from "@material-ui/core/Grid"
 import Box from "@material-ui/core/Box"
-import { makeStyles } from "@material-ui/core/styles"
+import Grid from "@material-ui/core/Grid"
 import IconButton from "@material-ui/core/IconButton"
-import HighlightOffIcon from "@material-ui/icons/HighlightOff"
-import Picture from "../../images/products/funny_bunny/funny_bunny_1.jpg"
+import Modal from "@material-ui/core/Modal"
 import Paper from "@material-ui/core/Paper"
-import theme from "../theme"
-import SubscribeForm from "./SubscribeForm"
+import { createStyles, makeStyles, Theme } from "@material-ui/core/styles"
+import HighlightOffIcon from "@material-ui/icons/HighlightOff"
+import React, { useContext } from "react"
+import Picture from "../../../src/images/products/funny_bunny/funny_bunny_1.jpg"
+// import Picture from "../../images/products/funny_bunny/funny_bunny_1.jpg"
 import { LanguageContext } from "../layout"
+import { SubscribeForm } from "./SubscribeForm"
 
 const window = require("global/window")
 
@@ -28,7 +27,7 @@ const scale1 = window.innerWidth <= 599 ? "1.1" : "2"
 const scale2 = window.innerWidth <= 599 ? "0.7" : "1.2"
 const scale3 = window.innerWidth <= 599 ? "0.4" : "1"
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles((theme: Theme) => createStyles({
   modalWrapper: {
     display: "flex",
     alignItems: "center",
@@ -41,11 +40,8 @@ const useStyles = makeStyles(theme => ({
     },
     maxHeight: " 100vh",
     width: modalWindowWidth,
-    backgroundColor: theme.third.backgroundColor,
-    // border: "2px solid ",
-    // borderColor: theme.palette.primary.main,
+    backgroundColor: 'theme.third.backgroundColor',
     boxShadow: theme.shadows[5],
-
     zIndex: 9999,
     position: "fixed",
     inline: 0,
@@ -64,7 +60,6 @@ const useStyles = makeStyles(theme => ({
     textAlign: "center",
     marginTop: boxMarginTop,
   },
-
   font1: {
     fontSize: 12,
     transform: `scale(${scale1})`,
@@ -77,7 +72,7 @@ const useStyles = makeStyles(theme => ({
   font2: {
     fontSize: 12,
     transform: `scale(${scale2})`,
-    fontWeight: "regular",
+    fontWeight: 'regular',
     lineHeight: 1.1,
     marginBottom: font2MarginBotom,
     whiteSpace: "nowrap",
@@ -95,19 +90,15 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
-export default function Impressum(props) {
+export function WeclomeModal({onClose, open}) {
   const classes = useStyles()
   const { actLanguage } = useContext(LanguageContext)
 
   return (
     <Modal
       className={classes.modalWrapper}
-      onClose={props.onClose}
-      // onClose={e => {
-      //   props.onClose(e)
-      //   props.visited(true)
-      // }}
-      open={props.open}
+      onClose={onClose}
+      open={open}
     >
       <Paper className={classes.paper}>
         <Grid container spacing={0}>
@@ -156,7 +147,7 @@ export default function Impressum(props) {
             )}
 
             <Box>
-              <SubscribeForm open={props.open} onClose={props.onClose} />
+              <SubscribeForm show={show} onClose={onClose} />
             </Box>
             <Box className={classes.font3}>
               {actLanguage === "DEU"
@@ -184,11 +175,7 @@ export default function Impressum(props) {
                 zIndex: 9999,
                 position: "fixed",
               }}
-              onClick={props.onClose}
-              // onClick={e => {
-              //   props.onClose(e)
-              //   props.visited(true)
-              // }}
+              onClick={onClose}
             >
               <HighlightOffIcon
                 style={{
