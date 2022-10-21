@@ -1,15 +1,12 @@
+import { makeStyles } from "@material-ui/core/styles"
 import React from "react"
+import { Swiper, SwiperSlide } from "swiper/react"
 import "swiper/swiper-bundle.css"
 import "./swiper.css"
-import { makeStyles } from "@material-ui/core/styles"
-import { Swiper, SwiperSlide } from "swiper/react"
 
 import SwiperCore, {
-  Thumbs,
-  Zoom,
-  Navigation,
-  EffectFade,
-  Pagination,
+  EffectFade, Navigation, Pagination, Thumbs,
+  Zoom
 } from "swiper"
 
 const useStyles = makeStyles(theme => ({

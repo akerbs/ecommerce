@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600&display=swap");
+@import url("https://fo/*.js.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600&display=swap");
 
 html {
   font-family: sans-serif;
@@ -49,7 +49,7 @@ template {
 }
 a {
   background-color: transparent;
-  -webkit-text-decoration-skip: objects;
+  -webkit-text-decoration-skip: obje/*.js;
 }
 a:active,
 a:hover {
@@ -360,7 +360,7 @@ ul {
   padding-right: 0;
   padding-top: 0;
   margin-bottom: 1.45rem;
-  list-style-position: outside;
+  list-style-position: o/*.jside;
   list-style-image: none;
 }
 ol {
@@ -372,7 +372,7 @@ ol {
   padding-right: 0;
   padding-top: 0;
   margin-bottom: 1.45rem;
-  list-style-position: outside;
+  list-style-position: o/*.jside;
   list-style-image: none;
 }
 dl {

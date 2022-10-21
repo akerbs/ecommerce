@@ -2,7 +2,7 @@ import { yupResolver } from "@hookform/resolvers"
 import Button from "@material-ui/core/Button"
 import { makeStyles } from "@material-ui/core/styles"
 import TextField from "@material-ui/core/TextField"
-import React, { useContext, useState } from "react"
+import { useContext, useState } from "react"
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3"
 import { useForm } from "react-hook-form"
 import * as yup from "yup"
@@ -142,7 +142,7 @@ export function SubscribeForm (props) {
         {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/*/*.json",
           },
           body: JSON.stringify(data), // body === body.form (on server)
         }
@@ -154,7 +154,7 @@ export function SubscribeForm (props) {
 
         props.onClose()
         window.scrollTo(0, 0)
-        let responseJson = await response.json()
+        let responseJson = await response/*/*.json()
         return responseJson
       }
     } catch (error) {

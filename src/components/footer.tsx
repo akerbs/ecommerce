@@ -1,18 +1,4 @@
-import CssBaseline from "@material-ui/core/CssBaseline"
-import Grid from "@material-ui/core/Grid"
-import Slide from "@material-ui/core/Slide"
 import { makeStyles } from "@material-ui/core/styles"
-import Typography from "@material-ui/core/Typography"
-import FacebookIcon from "@material-ui/icons/Facebook"
-import InstagramIcon from "@material-ui/icons/Instagram"
-import { Link } from "gatsby"
-import inView from "in-view"
-import React, { useEffect, useState } from "react"
-import payCard3 from "../images/payCards/amex.jpg"
-import payCard2 from "../images/payCards/mastercard.jpg"
-import payCard4 from "../images/payCards/paypal.jpg"
-import payCard1 from "../images/payCards/visa.jpg"
-import SubscribeFormFooter from "./Subscribe/SubscribeFormFooter"
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -21,7 +7,7 @@ const useStyles = makeStyles(theme => ({
 
     padding: "4% 2% 0% 7%",
 
-    [theme.breakpoints.down("sm")]: {
+    [theme.breakpoi/*.js.down("sm")]: {
       padding: "15% 5% 5% 5%",
     },
   },

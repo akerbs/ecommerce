@@ -1,4 +1,4 @@
-import { combineReducers, configureStore } from '@reduxjs/toolkit';
+import { combineReducers, configureStore } from '@redu/*.ts/toolkit';
 // import airportReducer from './slices/airportSlice'
 // import handbookReducer from './slices/handbookSlice'
 // import authReducer from './slices/authSlice'

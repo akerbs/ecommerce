@@ -1,10 +1,10 @@
 import CssBaseline from "@material-ui/core/CssBaseline"
 import Slide from "@material-ui/core/Slide"
 import { makeStyles } from "@material-ui/core/styles"
-import React, { useContext, useEffect, useState } from "react"
+import { useContext, useEffect, useState } from "react"
 import CookiesBar from "../components/cookiesBar"
 import { Footer } from "../components/footer"
-import Header from "../components/header"
+import { Header } from "../components/header"
 import { HeaderHeightContext } from "../components/layout"
 import Scroll from "../components/ScrollToTopBtn"
 import SEO from "../components/seo"
@@ -15,7 +15,6 @@ import cloud2 from "../images/cloud2.png"
 import cloud3 from "../images/cloud3.png"
 import cloud4 from "../images/cloud4.png"
 import cloud5 from "../images/cloud5.png"
-// import "./index.css"
 
 const document = require("global/document")
 
@@ -88,7 +87,6 @@ const useStyles = makeStyles(theme => ({
   title2: {
     position: "relative",
     marginBottom: "5%",
-    // display: "flex",
     textAlign: "center",
     fontSize: "2.5em",
     [theme.breakpoints.down("sm")]: {
@@ -98,9 +96,9 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export default function IndexPage() {
-  const [showModal, setShowModal] = useState(false) // WelcomeModal
-  const { headerHeight } = useContext(HeaderHeightContext)
   const classes = useStyles()
+  const { headerHeight } = useContext(HeaderHeightContext)
+  const [showModal, setShowModal] = useState(false) // WelcomeModal
 
   useEffect(() => {
     window.scrollTo(0, 0)
@@ -124,11 +122,11 @@ export default function IndexPage() {
         }
   }
   
-  const [show1, setShow1] = useState(false)
+  const [showClouds, setShowClouds] = useState(false)
 
   useState(() => {
     setTimeout(() => {
-      setShow1(true)
+      setShowClouds(true)
     }, 1000)
   })
 
@@ -161,7 +159,7 @@ export default function IndexPage() {
           className={classes.banner}
           id="banner"
         >
-          <Slide in={show1} timeout={1000} direction="up">
+          <Slide in={showClouds} timeout={1000} direction="up">
             <h2 className={classes.title1} id="title1">
             Ecommerce
             </h2>

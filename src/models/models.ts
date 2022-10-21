@@ -1,42 +1,32 @@
 export interface IProduct {
-  category: string            // ----
-  description: string
-  id: number
-  image: string
-  price: number
-  rating: {rate: number, count: number}
-  title: string
-}
-
-interface IOldProduct {
   linkId: string
-  productId: string               //id: number
+  productId: string               
   nameEng: string
   nameDeu: string
   nameRus: string
   descriptionEng: string
   descriptionDeu: string
-  descriptionRus: string         // description: string
+  descriptionRus: string         
   videoId: string
-  firstImg: string              // image: string
+  firstImg: string              
   scndImg: string
   hovered: false,
   skuUsd: string
-  priceUsd: 0,
+  priceUsd: number,
   currencyUsd: string
   currencySignUsd: string
   skuEur: string
-  priceEur: 10000,             //price: number
+  priceEur: number,            
   currencyEur: string           
   currencySignEur: string
   skuRub: string
-  priceRub: 0,
+  priceRub: number,
   currencyRub: string
   currencySignRub: string
-  quantity: 1,
+  quantity: number,
   reviews: [
     {
-      rating: 5,
+      rating: number,
       title: string
       review: string
       name: string

@@ -1,16 +1,13 @@
-// @ts-nocheck
 import axios from 'axios';
-import React, { createContext, useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import catClock from "../images/products/cat_clock/cat_clock_1.jpg";
 import funnyBunny2 from "../images/products/funny_bunny/funny_bunny_1.jpg";
 import funnyBunny from "../images/products/funny_bunny/funny_bunny_2.jpg";
 import magicHat from "../images/products/magic_hat/magic_hat_1.jpg";
 
-
-
 const ItemsContext = createContext()
 
-const ItemsContextProvider = ({children}) => {
+const ItemsContextProvider = ({children}: {children: React.ReactNode}) => {
   const [products, setProducts] = useState([
     {
       linkId: "funny-bunny",
@@ -127,23 +124,13 @@ const ItemsContextProvider = ({children}) => {
     const newData = products.map(item => ({
       ...item,  key: item.itemId, priceRub: Number((item.priceEur * eurRubRate)), priceUsd: Number((item.priceEur * eurUsdRate)),
     }))
-
     setProducts(newData)
     console.log('NEW DATA', newData)
   }, [eurRubRate,eurUsdRate ])
 
   useEffect(() => {
     console.log('PRODUCTS changes', products);
-    
     }, [products])
-
-  // useEffect(() => {
-  //   const newData = products.map(item => ({
-  //     ...item,  priceRub: Number((item.price * eurRubRate)), priceUsd: Number((item.price * eurUsdRate)),
-  //   }))
-
-  //   setProducts(newData)
-  // }, [eurRubRate, eurUsdRate])
 
   async function GetExchangeRates() {
     try {
