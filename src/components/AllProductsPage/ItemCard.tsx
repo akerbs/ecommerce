@@ -38,8 +38,8 @@ const useStyles = makeStyles({
   },
 })
 
-export function ItemCard({linkId, productId }: IProduct) {
-  // console.log(`ITEMS ${props.id} PROPS SKU:`, props.sku);
+export function ItemCard({...props }: IProduct) {
+  console.log(`PROPS in ItemCard:`, props);
   const classes = useStyles()
   const [show, setShow] = useState(false)
 

@@ -2,7 +2,8 @@ import { yupResolver } from "@hookform/resolvers"
 import Button from "@material-ui/core/Button"
 import { makeStyles } from "@material-ui/core/styles"
 import TextField from "@material-ui/core/TextField"
-import { useContext, useState } from "react"
+import axios from "axios"
+import React, { useContext, useState } from "react"
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3"
 import { useForm } from "react-hook-form"
 import * as yup from "yup"
@@ -85,7 +86,11 @@ const schemaRus = yup.object().shape({
   // .email('Please check your email')
 })
 
-export function SubscribeForm (props) {
+interface SubscribeFormProps {
+  onClose: () => void
+}
+
+export function SubscribeForm ({onClose}: SubscribeFormProps) {
   const { executeRecaptcha } = useGoogleReCaptcha()
   const [token, setToken] = useState("")
   const { actLanguage } = useContext(LanguageContext)
@@ -136,7 +141,7 @@ export function SubscribeForm (props) {
 
       data = { data, actLanguage }
 
-      let response = await fetch(
+      let response = await axios.post(
         "https://my-store-1-mailer.herokuapp.com/subscribe",
         // "http://localhost:3000/subscribe",
         {
@@ -147,22 +152,22 @@ export function SubscribeForm (props) {
           body: JSON.stringify(data), // body === body.form (on server)
         }
       )
-      if (response.ok) {
         alert(alertMessage)
         handleLoadingOff()
         reset(response)
 
-        props.onClose()
+        onClose()
         window.scrollTo(0, 0)
-        let responseJson = await response/*/*.json()
-        return responseJson
-      }
-    } catch (error) {
-      console.error(error)
+      
+        return response
+
+    } catch (e) {
+      console.error(e)
     }
   }
 
   return (
+  <>
     <form onSubmit={handleSubmit(onSubmit)} noValidate className={classes.form}>
       {/* <FormControl className={classes.formControl}> */}
       <TextField
@@ -248,5 +253,7 @@ export function SubscribeForm (props) {
           : null}
       </Button>
     </form>
+  </>
+  
   )
 }

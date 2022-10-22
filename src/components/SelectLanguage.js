@@ -1,9 +1,7 @@
-import FormControl from "@material-ui/core/FormControl"
-import MenuItem from "@material-ui/core/MenuItem"
-import Select from "@material-ui/core/Select"
-import { makeStyles } from "@material-ui/core/styles"
-import React, { useContext } from "react"
-import { LanguageContext } from "./layout"
+import MenuItem from "@material-ui/core/MenuItem";
+import { makeStyles } from "@material-ui/core/styles";
+import React, { useContext } from 'react';
+import { LanguageContext } from "./layout";
 
 const useStyles = makeStyles(theme => ({
   formControl: {
@@ -30,7 +28,6 @@ export default function SelectLanguage() {
   const { actLanguage, handleLanguageChange } = useContext(LanguageContext)
 
   return (
-    <>
       <FormControl variant="standard" className={classes.formControl}>
         <Select
           className={classes.select}
@@ -53,6 +50,5 @@ export default function SelectLanguage() {
           <MenuItem value={"RUS"}>RU</MenuItem>
         </Select>
       </FormControl>
-    </>
   )
 }

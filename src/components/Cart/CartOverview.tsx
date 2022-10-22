@@ -1,8 +1,7 @@
-import { useContext, useState } from "react"
-// import { useShoppingCart } from "use-shopping-cart"
 import { makeStyles } from "@material-ui/core/styles"
-
+import axios from "axios"
 import { navigate } from "gatsby"
+import React, { useContext, useState } from "react"
 import { CartContext } from "../../context/CartContext"
 import { DrawerCartContext } from "../../context/DrawerCartContext"
 import { CurrencyContext, LanguageContext } from "../layout"
@@ -44,7 +43,7 @@ export default function Cart(props) {
     console.log("The payment was succeeded!", payment)
 
     try {
-      let response = await fetch(
+      let response = await axios.post(
         // `${process.env.GATSBY_MAILER_URL}/pppdate`,
         "https://my-store-1-mailer.herokuapp.com/pppdate",
         // "http://localhost:3000/pppdate",
@@ -56,13 +55,12 @@ export default function Cart(props) {
           body: JSON.stringify(payment),
         }
       )
-      if (response.ok) {
         handleDrawerCartClose()
         clearCart()
         navigate("/success")
-        let responseJson = await response/*.tson()
-        return responseJson
-      }
+        
+      return response
+
     } catch (error) {
       console.error(error)
     }

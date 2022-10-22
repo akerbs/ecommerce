@@ -7,7 +7,7 @@ const useStyles = makeStyles(theme => ({
 
     padding: "4% 2% 0% 7%",
 
-    [theme.breakpoi/*.js.down("sm")]: {
+    [theme.breakpoints.down("sm")]: {
       padding: "15% 5% 5% 5%",
     },
   },

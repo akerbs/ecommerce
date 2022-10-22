@@ -24,11 +24,11 @@ const useStyles = makeStyles(theme => ({
     //   backgroundColor: theme.palette.primary.light,
     // },
     border: "2px solid white",
-    [theme.breakpoi/*.js.up("xs")]: {
+    [theme.breakpoints.up("xs")]: {
       right: "5%",
       // backgroundColor: "rgb(220,220,220,0.7)",
     },
-    [theme.breakpoi/*.js.up("lg")]: {
+    [theme.breakpoints.up("lg")]: {
       right: "6.5%",
     },
   },

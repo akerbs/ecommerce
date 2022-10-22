@@ -134,7 +134,7 @@ const ItemsContextProvider = ({children}: {children: React.ReactNode}) => {
 
   async function GetExchangeRates() {
     try {
-      let response = await axios(`https://api.exchangerate.host/latest`) 
+      let response = await axios.get(`https://api.exchangerate.host/latest`) 
       setEurRubRate((response?.data?.rates?.RUB)?.toFixed(2))
       setEurUsdRate((response?.data?.rates?.USD)?.toFixed(2))
       console.log("EURRUB", response?.data?.rates?.RUB?.toFixed(2))

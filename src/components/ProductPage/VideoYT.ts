@@ -58,7 +58,7 @@ export default function (props) {
     playerVars: {
       // https://developers.google.com/youtube/player_parameters
       // autoplay: 1,
-      enabl/*.tsapi: 1,
+      enablejsapi: 1,
       rel: 0,
       showinfo: 0,
       controls: 0,

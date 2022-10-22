@@ -69,7 +69,7 @@ function Layout({ children }) {
 
   async function getLocation() {
     try {
-      const response = await axios("https://api.country.is")
+      const response = await axios.get("https://api.country.is")
 
       console.log('response',response);
       const countryCode = response?.data?.country

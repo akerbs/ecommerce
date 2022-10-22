@@ -1,6 +1,6 @@
 import { useImperativeHandle, useRef } from "react"
 
-const StripeInput({ component: Component, inputRef, ...props }) => {
+const StripeInput = ({ component: Component, inputRef, ...props }) => {
   const elementRef = useRef()
 
   useImperativeHandle(inputRef, () => ({

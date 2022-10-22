@@ -9,6 +9,14 @@ module.exports = {
     author: `@gatsbyjs`,
   },
   plugins: [
+    {
+      resolve: `gatsby-plugin-typescript`,
+      options: {
+      isTSX: true, // defaults to false
+      jsxPragma: `jsx`, // defaults to "React"
+      allExtensions: true, // defaults to false
+      }
+    },
     `gatsby-plugin-react-helmet`,
     {
       resolve: `gatsby-source-filesystem`,
@@ -46,7 +54,7 @@ module.exports = {
     {
       resolve: `gatsby-plugin-layout`,
       options: {
-        component: require.resolve(`./src/components/layout.js`),
+        component: require.resolve(`./src/components/layout.tsx`),
       },
     },
     `gatsby-plugin-material-ui`,
